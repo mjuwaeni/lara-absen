@@ -10,6 +10,7 @@ class Pembimbing extends Model
     use HasFactory;
     protected $table = 'pembimbings';
     protected $fillable = [
+        'users_id',
         'name_pbb',
         'alamat',
         'wa',

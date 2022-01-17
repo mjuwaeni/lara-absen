@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Users;
 use App\Models\Pembimbing;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class AdminController extends Controller
 {
     public function user(){
-        $users=Users::all();
+        $users = Users::where('role','mahasiswa')->get();
         return view('home.admin.index', ['users'=>$users]);
     }
     public function users(){
-        $users=Users::all();
+        $users = Users::where('role','mahasiswa')->get();
         return view('home.admin.users', ['users'=>$users]);
     }
     public function pembimbing(){
@@ -22,24 +23,28 @@ class AdminController extends Controller
         return view('home.admin.pembimbing', ['pembimbing'=>$pembimbing]);
     }
     public function addpbb(){
-        return view('home.admin.formadd');
+        $users = Users::where('role','mahasiswa')->get();
+        return view('home.admin.formadd', ['users'=>$users]);
     }
     public function postpbb(Request $request){
         $this->validate($request,[
+            'user_id' => 'required',
             'name_pbb'  => 'required',
             'alamat'  => 'required',
             'wa'  => 'required',
         ]);
         Pembimbing::create([
-            'name_pbb'  => $request->name_pbb,
-            'alamat'  => $request->alamat,
-            'wa'  => $request->wa,
+            'users_id' => $request->user_id,
+            'name_pbb' => $request->name_pbb,
+            'alamat' => $request->alamat,
+            'wa' => $request->wa,
         ]);
         return redirect('home/admin/pembimbing');
     }
     public function editpbb($id){
         $pembimbing = Pembimbing::find($id);
-        return view('home.admin.editpbb', ['pembimbing' => $pembimbing]);
+        $users = Users::where('role','mahasiswa')->get();
+        return view('home.admin.editpbb', ['pembimbing' => $pembimbing, 'users' => $users]);
     }
     public function update(Request $request, $id){
         $this->validate($request,[

@@ -23,6 +23,14 @@
                                     <div class="form-group">
                                         <input class="form-control" placeholder="No. WA" name="wa" type="text">
                                     </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="user_id">
+                                                <option>Membimbing</option>
+                                            @foreach ( $users as $i)
+                                                <option value="{{ $i->id }}">{{ $i->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <button class="btn btn-lg btn-success btn-block" type="submit">Tambah</button>
                                 </fieldset>
