@@ -15,7 +15,7 @@
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $i['name']}}</td>
             <td>{{ $i['email']}}</td>
-            <td>{{ $i->pembimbing->name_pbb ?? 'Unset'}}</td>
+            <td>{{ $i->pembimbing['name_pbb']}}</td>
         </tr>
         @endforeach
     </tbody>
